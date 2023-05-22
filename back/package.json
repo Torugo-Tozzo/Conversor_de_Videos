@@ -1,0 +1,15 @@
+{
+  "name": "conversor",
+  "version": "1.0.0",
+  "description": "conversor de vids do yt",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "vitim",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.18.2",
+    "ffmpeg": "^0.0.4"
+  }
+}
