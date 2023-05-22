@@ -1,36 +1,21 @@
-import React, { useState } from 'react';
+import React from 'react';
+import VideoForm from './VideoForm';
+import Header from './Header';
+import Footer from './Footer';
 
 function App() {
-  const [videoUrl, setVideoUrl] = useState('');
-
-  const handleInputChange = (event) => {
-    setVideoUrl(event.target.value);
-  };
-
-  const handleSubmit = (event) => {
-    event.preventDefault();
+  const handleSubmit = (videoUrl) => {
     // Aqui você pode adicionar a lógica para enviar a URL do vídeo para o backend
     console.log(videoUrl);
-    // Limpar o campo de entrada após o envio
-    setVideoUrl('');
   };
 
   return (
     <div>
-      <h1>Conversão de Vídeo do YouTube</h1>
-      <form onSubmit={handleSubmit}>
-        <label htmlFor="videoUrl">URL do Vídeo:</label>
-        <input
-          type="text"
-          id="videoUrl"
-          name="videoUrl"
-          value={videoUrl}
-          onChange={handleInputChange}
-          required
-        />
-        <br />
-        <button type="submit">Enviar</button>
-      </form>
+        <Header />
+        <main>
+        <VideoForm onSubmit={handleSubmit} />
+        </main>
+        <Footer />
     </div>
   );
 }
