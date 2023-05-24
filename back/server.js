@@ -3,6 +3,8 @@ const cors = require('cors');
 const { exec } = require('youtube-dl-exec');
 const fs = require('fs');
 const path = require('path');
+const cheerio = require('cheerio');
+const axios = require('axios');
 
 const app = express();
 const PORT = process.env.PORT || 5000;
@@ -22,22 +24,38 @@ app.post('/processar', cors(corsOptions), async (req, res) => {
   const { videoUrl } = req.body;
 
   try {
+    // Buscar o título do vídeo
+    const response = await axios.get(videoUrl);
+    const $ = cheerio.load(response.data);
+    const videoTitle = $('title').text().trim();
+
+    res.json({ title: videoTitle });
+  } catch (error) {
+    console.error('Erro ao buscar o título do vídeo:', error);
+    res.status(500).send('Erro ao buscar o título do vídeo');
+  }
+});
+
+app.get('/download', cors(corsOptions), async (req, res) => {
+  const { videoUrl } = req.query;
+
+  try {
+    // Buscar o título do vídeo
+    const response = await axios.get(videoUrl);
+    const $ = cheerio.load(response.data);
+    const videoTitle = $('title').text().trim();
+    const sanitizedTitle = videoTitle.replace(/[^\w\s-]/g, ''); // Remover caracteres inválidos do título
+    const outputFilePath = path.join(__dirname, `${sanitizedTitle}.mp3`);
+
     // Baixar e converter o vídeo em MP3
-    const outputFilePath = path.join(__dirname, 'audio.mp3');
     await exec(videoUrl, {
       extractAudio: true,
       audioFormat: 'mp3',
       output: outputFilePath,
     });
 
-    // Verificar se o arquivo de áudio foi criado
-    const fileExists = fs.existsSync(outputFilePath);
-    if (!fileExists) {
-      throw new Error('Erro ao criar o arquivo de áudio');
-    }
-
     // Transmitir o arquivo de áudio para o navegador e iniciar o download
-    res.setHeader('Content-Disposition', 'attachment; filename=audio.mp3');
+    res.setHeader('Content-Disposition', `attachment; filename=${sanitizedTitle}.mp3`);
     res.setHeader('Content-Type', 'audio/mpeg');
     const stream = fs.createReadStream(outputFilePath);
     stream.pipe(res);
@@ -57,7 +75,7 @@ app.post('/processar', cors(corsOptions), async (req, res) => {
     res.status(500).send('Erro ao baixar e converter o vídeo');
   }
 });
-//ai papi
+
 app.listen(PORT, () => {
   console.log(`Servidor iniciado na porta ${PORT}`);
 });
