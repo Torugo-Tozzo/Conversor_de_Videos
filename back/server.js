@@ -14,7 +14,11 @@ app.get('/', (req, res) => {
   res.send('Servidor rodando!');
 });
 
-app.post('/processar', async (req, res) => {
+const corsOptions = {
+  origin: 'http://localhost:3000', // Altere para o endereço do seu frontend React
+};
+
+app.post('/processar', cors(corsOptions), async (req, res) => {
   const { videoUrl } = req.body;
 
   try {

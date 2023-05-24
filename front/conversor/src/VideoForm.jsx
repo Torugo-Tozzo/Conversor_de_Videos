@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import { saveAs } from 'file-saver';
 
 function VideoForm() {
   const [videoUrl, setVideoUrl] = useState('');
@@ -8,8 +9,9 @@ function VideoForm() {
     e.preventDefault();
 
     try {
-      const response = await axios.post('http://localhost:5000/processar', { videoUrl });
-      console.log(response.data); // Exibe a resposta do servidor no console
+      const response = await axios.post('http://localhost:5000/processar', { videoUrl }, { responseType: 'blob' });
+      const blob = new Blob([response.data], { type: 'audio/mpeg' });
+      saveAs(blob, 'audio.mp3');
     } catch (error) {
       console.error(error);
     }
