@@ -2,6 +2,7 @@ import React from 'react';
 import VideoForm from './VideoForm';
 import Header from './Header';
 import Footer from './Footer';
+import './styles.css';
 
 function App() {
   const handleSubmit = (videoUrl) => {
@@ -10,7 +11,7 @@ function App() {
   };
 
   return (
-    <div>
+    <div className="app-container">
         <Header />
         <main>
         <VideoForm onSubmit={handleSubmit} />
