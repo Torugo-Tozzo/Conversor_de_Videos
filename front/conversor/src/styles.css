@@ -1,0 +1,92 @@
+.video-form-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  
+}
+
+h3{
+  color: #EEEEEE;
+  text-align: center;
+}
+
+main{
+  background-color: #393E46;
+  margin-bottom: 100px;
+}
+
+.app-container{
+  background-color: #393E46;
+}
+
+.logo-container {
+  margin-bottom: 1rem;
+}
+
+.logo {
+  width: 300px;
+  height: 300px;
+  border-radius: 10%;
+  margin: 10%;
+}
+
+.input-bar {
+  width: 125%;
+  margin: 0 auto;
+}
+
+.btn {
+  margin-top: 0.5rem;
+  align-items: center;
+}
+
+.footer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 80px; /* Adjust the height as needed */
+  background-color: #f2f2f2; /* Add a background color for the footer */
+  
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background-color: #222831;
+  color: #EEEEEE;
+}
+
+.header {
+  background-color: #222831;
+  color: #EEEEEE;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+  flex-direction: row-reverse; /* Inverte a direção dos elementos */
+}
+
+.navbar-list {
+  display: flex;
+  list-style-type: none;
+}
+
+.navbar-item {
+  margin-right: 1rem;
+}
+
+.navbar-link {
+  color: #EEEEEE;
+  text-decoration: none;
+}
+
+.navbar-link:hover {
+  color: #00ADB5;
+}
+
+.button-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  margin: 3%;
+}
