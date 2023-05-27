@@ -1,6 +1,6 @@
 # Conversor_de_Videos 
- app web em node js - react
+App web em Node.js e React
 
 ![Imagem do Projeto](./front/conversor/src/Images/Conversor.png)
 
-[![Video_Demonstração](https://youtu.be/TAbOfp8qNpc)](https://youtu.be/TAbOfp8qNpc "Video_Demonstração")
+[![Video_Demonstração](https://img.youtube.com/vi/TAbOfp8qNpc/0.jpg)](https://www.youtube.com/watch?v=TAbOfp8qNpc "Video_Demonstração")
