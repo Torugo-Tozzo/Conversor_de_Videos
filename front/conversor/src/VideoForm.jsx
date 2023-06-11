@@ -24,18 +24,33 @@ function VideoForm() {
     }
   };
 
-  const handleDownload = () => {
+  const handleDownload = async () => {
     if (selectedFormat) {
       setIsDownloading(true);
-      const downloadUrl = `http://localhost:5000/download?videoUrl=${encodeURIComponent(
-        videoUrl
-      )}&format=${selectedFormat}`;
-      window.open(downloadUrl, '_blank');
-      setIsDownloading(false);
+  
+      try {
+        const response = await axios.get('http://localhost:5000/download', {
+          params: { videoUrl, format: selectedFormat },
+          responseType: 'blob', // Especificar o tipo de resposta como blob (objeto binário)
+        });
+  
+        // Criar um objeto URL para o blob retornado
+        const downloadUrl = URL.createObjectURL(new Blob([response.data]));
+        // Criar um link temporário para iniciar o download
+        const link = document.createElement('a');
+        link.href = downloadUrl;
+        link.download = `${videoTitle}.${selectedFormat}`;
+        link.click();
+  
+        setIsDownloading(false);
+      } catch (error) {
+        console.error('Erro ao baixar o vídeo:', error);
+        setIsDownloading(false);
+      }
     } else {
       alert('Selecione um formato de download');
     }
-  };
+  };  
 
   const handleInputChange = (e) => {
     setVideoUrl(e.target.value);
