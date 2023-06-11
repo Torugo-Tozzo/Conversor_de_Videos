@@ -1,5 +1,9 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import VideoInput from './VideoInput';
+import VideoTitle from './VideoTitle';
+import FormatOptions from './FormatOptions';
+import DownloadButton from './DownloadButton';
 import logo from './Images/Conversor.png';
 import './styles.css';
 
@@ -27,21 +31,19 @@ function VideoForm() {
   const handleDownload = async () => {
     if (selectedFormat) {
       setIsDownloading(true);
-  
+
       try {
         const response = await axios.get('http://localhost:5000/download', {
           params: { videoUrl, format: selectedFormat },
           responseType: 'blob', // Especificar o tipo de resposta como blob (objeto binário)
         });
-  
-        // Criar um objeto URL para o blob retornado
+
         const downloadUrl = URL.createObjectURL(new Blob([response.data]));
-        // Criar um link temporário para iniciar o download
         const link = document.createElement('a');
         link.href = downloadUrl;
         link.download = `${videoTitle}.${selectedFormat}`;
         link.click();
-  
+
         setIsDownloading(false);
       } catch (error) {
         console.error('Erro ao baixar o vídeo:', error);
@@ -50,7 +52,7 @@ function VideoForm() {
     } else {
       alert('Selecione um formato de download');
     }
-  };  
+  };
 
   const handleInputChange = (e) => {
     setVideoUrl(e.target.value);
@@ -67,18 +69,10 @@ function VideoForm() {
       </div>
 
       <form onSubmit={handleSubmit} className="mb-3">
-        <div className="input-bar">
-          <input
-            type="text"
-            id="videoUrl"
-            name="videoUrl"
-            value={videoUrl}
-            onChange={handleInputChange}
-            className="form-control input-bar"
-            placeholder="Insira a URL do vídeo"
-            required
-          />
-        </div>
+        <VideoInput
+          videoUrl={videoUrl}
+          handleInputChange={handleInputChange}
+        />
         <button type="submit" className="btn btn-primary">
           Buscar Título
         </button>
@@ -88,30 +82,15 @@ function VideoForm() {
 
       {videoTitle && !isLoading && (
         <div className="button-container">
-          <h3>Título do Vídeo: {videoTitle}</h3>
-          <div className="format-options">
-            <label>
-              <input
-                type="radio"
-                value="mp3"
-                checked={selectedFormat === 'mp3'}
-                onChange={handleFormatChange}
-              />
-              MP3
-            </label>
-            <label>
-              <input
-                type="radio"
-                value="mp4"
-                checked={selectedFormat === 'mp4'}
-                onChange={handleFormatChange}
-              />
-              MP4
-            </label>
-          </div>
-          <button onClick={handleDownload} disabled={isDownloading} className="btn btn-primary">
-            {isDownloading ? 'Fazendo download...' : 'Baixar'}
-          </button>
+          <VideoTitle videoTitle={videoTitle} />
+          <FormatOptions
+            selectedFormat={selectedFormat}
+            handleFormatChange={handleFormatChange}
+          />
+          <DownloadButton
+            handleDownload={handleDownload}
+            isDownloading={isDownloading}
+          />
         </div>
       )}
     </div>
