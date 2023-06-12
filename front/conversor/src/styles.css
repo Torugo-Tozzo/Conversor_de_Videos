@@ -90,3 +90,37 @@
     text-align: center;
     margin: 3%;
   }
+
+  .format-options {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .space {
+    padding: 0 30%;
+  }
+
+  .icon-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+  }
+  
+  .icon {
+    margin-bottom: 8px;
+    color: #222831;
+  }
+  
+  .format-text {
+    color: whitesmoke;
+    text-align: center;
+  }
+  
+  .checkbox {
+    width: 24px;
+    height: 24px;
+    margin-top: 8px;
+  }
+  
