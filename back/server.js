@@ -7,7 +7,7 @@ const cheerio = require('cheerio');
 const axios = require('axios');
 
 const app = express();
-const PORT = process.env.PORT ;
+const PORT = process.env.PORT || 5000 ;
 
 app.use(express.json());
 app.use(cors());
@@ -17,7 +17,7 @@ app.get('/', (req, res) => {
 });
 
 const corsOptions = {
-  origin: 'https://conversor-do-togs.vercel.app', // Altere para o endereço do seu frontend React
+  origin: 'http://localhost:3000', // Altere para o endereço do seu frontend React
 };
 
 app.post('/processar', cors(corsOptions), async (req, res) => {
