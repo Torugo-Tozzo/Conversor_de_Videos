@@ -19,7 +19,7 @@ function VideoForm() {
     setIsLoading(true);
 
     try {
-      const response = await axios.post('http://localhost:5000/processar', { videoUrl });
+      const response = await axios.post('https://conversor-de-videos-96cn.vercel.app/processar', { videoUrl });
       setVideoTitle(response.data.title);
     } catch (error) {
       console.error(error);
@@ -33,7 +33,7 @@ function VideoForm() {
       setIsDownloading(true);
 
       try {
-        const response = await axios.get('http://localhost:5000/download', {
+        const response = await axios.get('https://conversor-de-videos-96cn.vercel.app/download', {
           params: { videoUrl, format: selectedFormat },
           responseType: 'blob', // Especificar o tipo de resposta como blob (objeto binário)
         });

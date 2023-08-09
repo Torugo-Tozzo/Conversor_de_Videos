@@ -17,7 +17,7 @@ app.get('/', (req, res) => {
 });
 
 const corsOptions = {
-  origin: 'http://localhost:3000', // Altere para o endereço do seu frontend React
+  origin: 'https://conversor-do-togs.vercel.app', // Altere para o endereço do seu frontend React
 };
 
 app.post('/processar', cors(corsOptions), async (req, res) => {
